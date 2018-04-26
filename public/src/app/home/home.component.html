@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2 class="text-center">Login and Registration</h2>
+    <br>
+
+
+    <div class="row container-fluid text-center">
+        <div class="col-6 bg-warning">
+            <h3>Register</h3>
+            <form (submit)="createUser()" method="post">
+                <label for="first">First name:</label>
+                <input class="form-control" type="text" name="first" pattern="^[A-Za-z ,.'-]+$" required minlength="2" [(ngModel)]="first" #firstname="ngModel"><br>
+                <label for="last">Last name:</label>
+                <input class="form-control" type="text" name="last" pattern="^[A-Za-z ,.'-]+$" required minlength="2" [(ngModel)]="last" #lastname="ngModel"><br>
+                <label for="email">Email:</label>
+                <input class="form-control" type="email" name="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required [(ngModel)]="email" #emailaddress="ngModel"><br>
+                <label for="password">Password:</label>
+                <input class="form-control" type="password" name="password" required [(ngModel)]="password" #pword="ngModel"><br>
+                <label for="confirm">Confirm:</label>
+                <input class="form-control" type="password" name="confirm" required [(ngModel)]="confirm" #confirmpass="ngModel"><br>
+                <!-- <label for="birthday">Birthday:</label>
+        <input type="date" name="birthday"> -->
+                <input type="submit" name="submit" class="btn btn-secondary" [disabled]="!name" [disabled]="!email" [disabled]="!last" [disabled]="!birthday"
+                    [disabled]="!password">
+            </form>
+
+
+            <div *ngIf="!firstname.valid">
+                <h6 *ngIf="firstname.errors.required">First name field cannot be blank.</h6>
+                <h6 *ngIf="firstname.errors.pattern">First name cannot contain special characters.</h6>
+                <h6 *ngIf="firstname.errors.minlength">2 characters required for first name.</h6>
+            </div>
+            <div *ngIf="!lastname.valid">
+                <h6 *ngIf="lastname.errors.required">Last name field cannot be blank.</h6>
+                <h6 *ngIf="lastname.errors.pattern">Last name cannot contain special characters.</h6>
+                <h6 *ngIf="lastname.errors.minlength">2 characters required for last name.</h6>
+            </div>
+            <div *ngIf="!emailaddress.valid">
+                <h6 *ngIf="emailaddress.errors.required">Email field cannot be blank.</h6>
+                <h6 *ngIf="emailaddress.errors.pattern">Not a valid email address.</h6>
+            </div>
+
+            <h5 *ngIf="message">{{message}}</h5>
+        </div>
+
+        <div class="col-6 bg-success text-center">
+            <h3>Log back in!</h3>
+            <form (submit)="login()" method="post">
+                <label for="logemail">Email:</label>
+                <input class="form-control" type="email" name="logemail" [(ngModel)]="logemail"><br>
+                <label for="logpassword">Password:</label>
+                <input class="form-control" type="password" name="logpassword" [(ngModel)]="logpassword"><br>
+                <input type="submit" name="submit" class="btn btn-secondary">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
