@@ -12,12 +12,13 @@ import { HomeComponent } from './home/home.component';
 import { UserService } from './user.service';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     LobbyComponent,
     GameComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

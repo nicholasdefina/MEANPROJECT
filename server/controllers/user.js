@@ -8,10 +8,13 @@ var Active = mongoose.model('Active');
 module.exports =
     {
         create: function (req, res) {
-            var user = new User({ first: req.body.first, last: req.body.last, email: req.body.email, password: req.body.password })
+            var user = new User({ first: req.body.first, last: req.body.last, email: req.body.email,username: req.body.username, password: req.body.password })
             User.find({ email: req.body.email }, function (error, user) {
                 if (user.length >= 1) {
                     res.json({ "emailError": "That email already exists in the database. Choose a different one." })
+                }
+                if (user.length >= 1) {
+                    res.json({ "usernameError": "That username already exists in the database. Choose a different one." }) /////////////////////
                 }
                 else {
                     console.log(req.body.password)
@@ -23,6 +26,7 @@ module.exports =
                                 first: req.body.first,
                                 last: req.body.last,
                                 email: req.body.email,
+                                username:req.body.username,
                                 password: hash,
                             });
                         console.log(user)
@@ -41,6 +45,7 @@ module.exports =
 
                                         var newActive = new Active({
                                             email: req.body.email,
+                                            username:req.body.username,
                                             id: tempuser._id
                                         });
                                 
@@ -69,7 +74,7 @@ module.exports =
             console.log("at controller")
             // console.log(req.body.logemail)
             console.log(req.body.email)
-            User.findOne({ email: req.body.email }, function (err, user) //this is grabbing an array of users, which is an array of 1 in this case
+            User.findOne({ username: req.body.username }, function (err, user) //this is grabbing an array of users, which is an array of 1 in this case
             {
                 console.log(user)
                 if (err) {

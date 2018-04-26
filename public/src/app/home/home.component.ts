@@ -14,11 +14,12 @@ export class HomeComponent implements OnInit {
   first;
   last;
   email;
+  username;
   password;
   message;
   confirm;
   userid;
-  logemail;
+  logusername;
   logpassword;
   session;
 
@@ -31,7 +32,7 @@ export class HomeComponent implements OnInit {
 
 
   checksession(){
-    this.session = localStorage.getItem("email")
+    this.session = localStorage.getItem("username")
     console.log(this.session)
     if(this.session != null && this.session !="undefined")
     {
@@ -45,15 +46,14 @@ export class HomeComponent implements OnInit {
   createUser(){
     console.log(this.password)
     console.log(this.confirm)
-    this._userService.createUser(this.first, this.last, this.email, this.password, this.confirm).then((data=>{
+    this._userService.createUser(this.first, this.last, this.email, this.username, this.password, this.confirm).then((data=>{
       console.log(data, "this is component data")
       if(data['message']=='success'){
         this.userid = data['user']['_id'];
         this._userService.setID(this.userid);
         var temp = this._userService.getID();
         var check = this._userService.checkID(this.userid);
-        localStorage.setItem("email", this.email )
-        // this.session = sessionStorage.getItem("email")
+        localStorage.setItem("username", this.username )
         console.log(this.session)
         check.subscribe(data => {
           console.log(data);
@@ -75,14 +75,14 @@ export class HomeComponent implements OnInit {
     }
 
   login(){
-    this._userService.login(this.logemail, this.logpassword).then((data=>{
+    this._userService.login(this.logusername, this.logpassword).then((data=>{
       console.log(data, "this is component data for login")
       if(data['message']=='success'){
         this.userid = data['user']['id'];
         this._userService.setID(this.userid);
         var temp = this._userService.getID();
         var check = this._userService.checkID(this.userid);
-        localStorage.setItem("email", this.logemail)
+        localStorage.setItem("username", this.logusername)
         console.log(this.session)
         check.subscribe(data => {
           console.log(data);

@@ -4,6 +4,7 @@ var Schema = mongoose.Schema; //define Schema variable
 
 var ActiveSchema = new mongoose.Schema({  //defining active schema
     email: {type:String},
+    username: {type:String},
     id: {type: String}
 }, { timestamps: true })
 

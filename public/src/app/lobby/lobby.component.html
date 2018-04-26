@@ -1,5 +1,7 @@
 <h3>Welcome, {{session}}!</h3>
 <button (click)="logout()">logout</button>
+<br>
+<br>
 <div class="row">
   <div class="col-3 bg-warning">
     <h2>Here is for the rankings</h2>
@@ -8,6 +10,11 @@
     <h2>Here is for the games</h2>
   </div>
   <div class="col-3 bg-secondary">
-    <h2>Here is for the users</h2>
+    <h2>Users Currently logged in.</h2>
+    <ul>
+      <li *ngFor="let user of users">
+        {{user.username}}
+      </li>
+    </ul>
   </div>
 </div>

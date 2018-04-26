@@ -11,21 +11,22 @@ export class LobbyComponent implements OnInit {
   users;
   scores;
   session;
+  username;
 
   constructor(private _userService:UserService, private _router:Router) { }
 
   ngOnInit() {
     this.getUsers();
     this.getScores();
-    this.session = localStorage.getItem("email")
+    this.session = localStorage.getItem("username")
     console.log(this.session)
   }
   getUsers(){
     let observable = this._userService.getUsers();
     observable.subscribe(data => {
-    console.log(JSON.parse(data['_body']))  //turns whole string into json object
+    console.log(JSON.parse(data['_body'])['data'])  //turns whole string into json object
     console.log("This get users$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"),
-    this.users = data})
+    this.users = JSON.parse(data['_body'])['data']})
   }
   getScores(){
     let observable = this._userService.getScores();
@@ -41,9 +42,6 @@ export class LobbyComponent implements OnInit {
     
     }
 
-    // get user(): any{
-    //   return sessionStorage.getItem("email");
-    // }
   }
 
 
