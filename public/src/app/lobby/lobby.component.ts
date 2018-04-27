@@ -36,8 +36,12 @@ export class LobbyComponent implements OnInit {
   }
 
   logout(){
-    localStorage.clear();
     console.log("session cleared!!!!!!")
+    let observable = this._userService.logout();
+    observable.subscribe(data => {
+      console.log(data, "****************************"),
+      this.scores = data})
+      localStorage.clear();
     this._router.navigateByUrl('')
     
     }

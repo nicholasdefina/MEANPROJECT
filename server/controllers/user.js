@@ -112,7 +112,17 @@ module.exports =
                } 
                else
                {
-                   res.render("index")
+                   Active.findByIdAndRemove(req.body.userid,function(err){
+                    console.log(req.body.userid, "############################################")
+                       if(!err){
+                           res.json({error: "something went wrong"})
+                       }
+                       else
+                       {
+
+                           res.render("index")
+                       }
+                   })
                }
             })
         },

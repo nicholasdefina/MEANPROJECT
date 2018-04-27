@@ -6,7 +6,6 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class UserService {
   userid;
-  session;
   constructor(private _http: Http) { }
 
   createUser(first,last,email,username,password, confirm){
@@ -35,9 +34,8 @@ export class UserService {
   }
 
   logout(){
-    console.log(this.session)
-    localStorage.clear();
-  return this._http.get('/api/users/logout', this.session).map(data =>data.json()).toPromise();
+    console.log("in the service for logout")
+  return this._http.delete('/api/users/logout', this.userid)
   }
 
 }
