@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { UserService } from '../user.service';
 import {Router} from '@angular/router';
 import { GameComponent } from '../game/game.component';
 import { ListComponent } from '../list/list.component';
+import * as io from "socket.io-client";
 
 @Component({
   selector: 'app-lobby',
@@ -10,15 +11,41 @@ import { ListComponent } from '../list/list.component';
   styleUrls: ['./lobby.component.css']
 })
 export class LobbyComponent implements OnInit {
+  typing;
+  joined;
   users;
   scores;
   session;
   userid;
   gameOn;
+  username;
+  user: String;
+  room: String;
+  messageText: String;
+  messageArray: Array<{ user: String, message: String }> = [];
 
-  constructor(private _userService:UserService, private _router:Router) { }
+  constructor(private _userService:UserService, private _router:Router) { 
+    this._userService.newUserJoined()
+    .subscribe(data => this.messageArray.push(data));
+
+  this._userService.userLeftRoom()
+    .subscribe(data => this.messageArray.push(data));
+
+  this._userService.newMessageReceived()
+    .subscribe(data => this.messageArray.push(data));
+
+  this._userService.type(this.user)
+    .subscribe(data => this.messageArray.push(data));
+
+    this._userService.removeTyping().subscribe(data=>this.messageArray.pop())
+   }
 
   ngOnInit() {
+    this.user='';
+    this.messageText='';
+    this.typing = false;
+    this.joined = false;
+    this.room = "Lobby Chat";
     this.gameOn = false;
     this.getUsers();
     this.getScores();
@@ -57,6 +84,23 @@ export class LobbyComponent implements OnInit {
       this.gameOn = false;
     }
 
+    join() {
+      this.joined = true;
+      this._userService.joinRoom({ user: this.user, room: this.room });
+    }
+  
+    leave() {
+      this.joined = false;
+      this._userService.leaveRoom({ user: this.user, room: this.room });
+    }
+  
+    sendMessage() {
+      this._userService.sendMessage({ user: this.user, room: this.room, message: this.messageText });
+      this.messageText = "";
+    }
+    type(){
+      this._userService.type({user:this.user});
+    }
   }
 
 
