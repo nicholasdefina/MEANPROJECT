@@ -2,20 +2,24 @@ import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
 import { LobbyComponent } from '../lobby/lobby.component'
 
 @Component({
-  selector: 'app-game',
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.css']
 })
-export class GameComponent implements OnInit {
+export class ListComponent implements OnInit {
+
   @Input() 
   @Output() Emitter = new EventEmitter();
-
 
   constructor() { }
 
   ngOnInit() {
   }
-  closeGame(){
+  createGame() {
+    
+  }
+
+  openGame(){
     this.Emitter.emit()
   }
 }

@@ -10,6 +10,7 @@ import { LobbyComponent } from './lobby/lobby.component';
 import { GameComponent } from './game/game.component';
 import { HomeComponent } from './home/home.component';
 import { UserService } from './user.service';
+import { ListComponent } from './list/list.component';
 
 
 
@@ -19,6 +20,7 @@ import { UserService } from './user.service';
     LobbyComponent,
     GameComponent,
     HomeComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,

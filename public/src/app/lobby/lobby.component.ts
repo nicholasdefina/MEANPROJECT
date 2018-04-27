@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../user.service';
 import {Router} from '@angular/router';
+import { GameComponent } from '../game/game.component';
+import { ListComponent } from '../list/list.component';
 
 @Component({
   selector: 'app-lobby',
@@ -12,10 +14,12 @@ export class LobbyComponent implements OnInit {
   scores;
   session;
   userid;
+  gameOn;
 
   constructor(private _userService:UserService, private _router:Router) { }
 
   ngOnInit() {
+    this.gameOn = false;
     this.getUsers();
     this.getScores();
     this.userid = localStorage.getItem("userid")
@@ -32,8 +36,8 @@ export class LobbyComponent implements OnInit {
   getScores(){
     let observable = this._userService.getScores();
     observable.subscribe(data => {
-    console.log(data),
-    this.scores = data})
+    console.log(JSON.parse(data['_body'])['data']),
+    this.scores = JSON.parse(data['_body'])['data']})
   }
 
   logout(){
@@ -45,6 +49,12 @@ export class LobbyComponent implements OnInit {
       localStorage.clear();
     this._router.navigateByUrl('')
     
+    }
+    openGame(){
+      this.gameOn = true;
+    }
+    closeGame(){
+      this.gameOn = false;
     }
 
   }
