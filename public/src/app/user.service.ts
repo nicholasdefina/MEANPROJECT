@@ -33,9 +33,10 @@ export class UserService {
     return this._http.post('/api/users/login', {username:username, password:password}).map(data =>data.json()).toPromise();
   }
 
-  logout(){
+  logout(username){
+    console.log(username)
     console.log("in the service for logout")
-  return this._http.delete('/api/users/logout', this.userid)
+  return this._http.get('/api/users/logout/'+username)
   }
 
 }

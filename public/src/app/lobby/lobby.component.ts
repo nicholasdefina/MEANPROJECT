@@ -11,13 +11,14 @@ export class LobbyComponent implements OnInit {
   users;
   scores;
   session;
-  username;
+  userid;
 
   constructor(private _userService:UserService, private _router:Router) { }
 
   ngOnInit() {
     this.getUsers();
     this.getScores();
+    this.userid = localStorage.getItem("userid")
     this.session = localStorage.getItem("username")
     console.log(this.session)
   }
@@ -37,7 +38,7 @@ export class LobbyComponent implements OnInit {
 
   logout(){
     console.log("session cleared!!!!!!")
-    let observable = this._userService.logout();
+    let observable = this._userService.logout(this.session);
     observable.subscribe(data => {
       console.log(data, "****************************"),
       this.scores = data})

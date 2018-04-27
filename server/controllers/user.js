@@ -65,11 +65,6 @@ module.exports =
             })
         },
 
-        // check: function(req,res){
-        //     res.json({'response':true})
-
-        // },
-
         login: function (req, res) {
             console.log("at controller")
             // console.log(req.body.logemail)
@@ -89,7 +84,28 @@ module.exports =
                         if (bcrypt.compare(req.body.password, user.password)) {
                             req.session.user = user;
                             console.log(user.password);
+                            var newActive = new Active({
+                                username:req.body.username,
+                                // id: req.params.id
+                            });
+                    
+                            newActive.save()
+                            var newuserid = newActive.id;
+                            console.log("data received");
                             res.json({ message: "success", user: user });
+
+                            ////
+                            // var newActive = new Active({
+                            //     username:req.body.username,
+                            //     id: req.params.id
+                            // });
+                    
+                            // newActive.save()
+                            // var newuserid = newActive.id;
+                            // console.log("data received");
+                            // res.json({ message: "success", user: user });
+
+                            ////
                         }
                         else {
                             res.json({ error: "Password is incorrect." })
@@ -103,24 +119,22 @@ module.exports =
         logout: function(req, res)
         {
             console.log("at controller for logout")
-            // Active.removeById({email: session})
             req.session.destroy(function (err)
             {
                if(err)
                {
-                   res.json({error: "something went wrong"})
+                   res.json({error: "something went wrong here"})
                } 
                else
                {
-                   Active.findByIdAndRemove(req.body.userid,function(err){
-                    console.log(req.body.userid, "############################################")
-                       if(!err){
-                           res.json({error: "something went wrong"})
+                   Active.deleteOne({username:req.params.username},function(err){
+                       if(err){
+                           res.json({error: "something went wrong at this spot"})
                        }
                        else
                        {
 
-                           res.render("index")
+                           res.json({success: "great job!"})
                        }
                    })
                }
@@ -130,7 +144,7 @@ module.exports =
 
 
         getUsers: function (req, res) {
-            User.find({}, function (err, users) {
+            Active.find({}, function (err, users) {
                 if (err) {
                     console.log("Returned error", err);
                     res.json({ message: "Error", error: err.message })

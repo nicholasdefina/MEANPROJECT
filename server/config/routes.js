@@ -25,7 +25,7 @@ module.exports = function (app) {  //exporting routes
         users.getScores(req, res)
     })
 
-    app.get('/api/users/logout', function (req, res){
+    app.get('/api/users/logout/:username', function (req, res){
         users.logout(req,res)
     })
     // app.delete('/api/users/:id', function(req, res){  //delete user

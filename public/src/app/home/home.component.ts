@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
 
   checksession(){
     this.session = localStorage.getItem("username")
-    console.log(this.session)
+    console.log(this.session, "this is session storage")
     if(this.session != null && this.session !="undefined")
     {
       this._router.navigateByUrl('lobby');
@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit {
         var temp = this._userService.getID();
         var check = this._userService.checkID(this.userid);
         localStorage.setItem("username", this.username )
+        localStorage.setItem("userid", this.userid)
         console.log(this.session)
         check.subscribe(data => {
           console.log(data);
@@ -78,15 +79,19 @@ export class HomeComponent implements OnInit {
     this._userService.login(this.logusername, this.logpassword).then((data=>{
       console.log(data, "this is component data for login")
       if(data['message']=='success'){
-        this.userid = data['user']['id'];
+        this.userid = data['user']['_id'];
+        console.log(data['user']['_id'], "this is the user!!!!")
         this._userService.setID(this.userid);
         var temp = this._userService.getID();
         var check = this._userService.checkID(this.userid);
         localStorage.setItem("username", this.logusername)
-        console.log(this.session)
+        console.log(this.username)
+        localStorage.setItem("userid", data['user']['_id'])
+        console.log(this.userid, "&&&&&&&&&")
+        // console.log(this.session)
         check.subscribe(data => {
-          console.log(data);
-          console.log(data['_body'])
+          // console.log(data);
+          // console.log(data['_body'])
         })
         this._router.navigateByUrl('lobby')
       }
