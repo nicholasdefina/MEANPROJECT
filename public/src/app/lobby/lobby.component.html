@@ -1,13 +1,21 @@
 <h3>Welcome, {{session}}!</h3>
 <button (click)="logout()">logout</button>
 <div class="row">
-  <div class="col-3 bg-warning">
+  <div class="col-3 bg-warning" id="scoreList">
     <h2>Here is for the rankings</h2>
+    <ol>
+      <li *ngFor="let score of scores">{{score.first}} ==>> {{score.score}}</li>
+    </ol>
   </div>
-  <div class="col bg-info">
-    <h2>Here is for the games</h2>
+  <div class="col">
+  <div class="bg-info" id="nested">
+    <app-game *ngIf="gameOn" class="row" (Emitter)="closeGame()"></app-game>
+    <app-list *ngIf="!gameOn" class="row" (Emitter)="openGame()"></app-list>
+  
   </div>
-  <div class="col-3 bg-secondary">
+  <div class="row bg-success" id="chatbox"><h2>CHAT HERE</h2></div>
+</div>
+  <div class="col-3 bg-secondary" id="userList">
     <h2>Here is for the users</h2>
   </div>
 </div>

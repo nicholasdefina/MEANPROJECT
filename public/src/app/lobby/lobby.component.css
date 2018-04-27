@@ -1,0 +1,15 @@
+#userList{
+    height: 600px;
+}
+#nested{
+    height: 400px;
+}
+#chatbox{
+    height: 200px;
+}
+button{
+    margin: 10px;
+}
+li{
+    font-size: 150%;
+}
