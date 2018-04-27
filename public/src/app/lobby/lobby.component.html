@@ -15,8 +15,45 @@
       <app-list *ngIf="!gameOn" class="row" (Emitter)="openGame()"></app-list>
       
     </div>
-    <div class="row bg-success" id="chatbox">
-      <h2>CHAT HERE</h2>
+    <div class="row bg-light" id="chatbox">
+      <div class="container-fluid">
+        <div class="row">
+            <h2>Chat Fellow Gamers (Mind the Language!)</h2>
+            <hr>
+        </div>
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" [(ngModel)]="user" class="form-control" id="username" placeholder="Enter username">
+                    <!-- <small id="userHelp" class="form-text text-muted">Type your username.</small> -->
+                </div>
+            </div>
+            
+            <div class="col sm-2">
+                <div style="margin-top:19px;" class="pull-right"> 
+                    <button [disabled]="joined" type="button" class="btn btn-primary" (click)="join()">Join Chat</button>
+                    <button [disabled]="!joined" type="button" class="btn btn-dark" (click)="leave()">Leave</button>
+                </div>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="well container-fluid" style="height:200px; padding:15px;">
+                <div *ngFor="let item of messageArray">
+                <span><strong>{{item.user}} : </strong> {{item.message}}</span>
+                </div>
+            </div>
+        </div>
+        
+          <form (ngSubmit)="sendMessage()">
+              <div class="row">
+                <input (ngModelChange)="type($event)" autocomplete="off" class="col" type="text" name="messageText" class="form-control" [(ngModel)]="messageText">
+                <button class="col" type="submit" class="btn btn-success pull-right">Send</button>
+              </div>
+          </form>
+        
+    </div>
     </div>
   </div>
   <div class="col-3 bg-secondary" id="userList">
