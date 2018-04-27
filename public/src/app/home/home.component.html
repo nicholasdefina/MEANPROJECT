@@ -23,13 +23,13 @@
                 <input class="form-control" type="text" name="last" pattern="^[A-Za-z ,.'-]+$" required minlength="2" [(ngModel)]="last" #lastname="ngModel"><br>
                 <label for="email">Email:</label>
                 <input class="form-control" type="email" name="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required [(ngModel)]="email" #emailaddress="ngModel"><br>
+                <label for="username">Username:</label>
+                <input class="form-control" type="text" name="username" unique required minlength="4" [(ngModel)]="username" #usernamecheck="ngModel"><br>
                 <label for="password">Password:</label>
-                <input class="form-control" type="password" name="password" required [(ngModel)]="password" #pword="ngModel"><br>
+                <input class="form-control" type="password" name="password" required minlength="8" [(ngModel)]="password" #pword="ngModel"><br>
                 <label for="confirm">Confirm:</label>
                 <input class="form-control" type="password" name="confirm" required [(ngModel)]="confirm" #confirmpass="ngModel"><br>
-                <!-- <label for="birthday">Birthday:</label>
-        <input type="date" name="birthday"> -->
-                <input type="submit" name="submit" class="btn btn-secondary" [disabled]="!name" [disabled]="!email" [disabled]="!last" [disabled]="!birthday"
+                <input type="submit" name="submit" class="btn btn-secondary" [disabled]="!name" [disabled]="!email" [disabled]="!last"
                     [disabled]="!password">
             </form>
 
@@ -48,6 +48,15 @@
                 <h6 *ngIf="emailaddress.errors.required">Email field cannot be blank.</h6>
                 <h6 *ngIf="emailaddress.errors.pattern">Not a valid email address.</h6>
             </div>
+            <div *ngIf="!usernamecheck.valid">
+                <h6 *ngIf="usernamecheck.errors.required">Username field cannot be blank.</h6>
+                <h6 *ngIf="usernamecheck.errors.minlength">4 characters required for username.</h6>
+
+            </div>
+            <div *ngIf="!pword.valid">
+                <h6 *ngIf="pword.errors.required">Password field cannot be blank.</h6>
+                <h6 *ngIf="pword.errors.minlength">Password must be at least 8 characters.</h6>
+            </div>
 
             <h5 *ngIf="message">{{message}}</h5>
         </div>
@@ -55,8 +64,8 @@
         <div class="col-6 bg-success text-center">
             <h3>Log back in!</h3>
             <form (submit)="login()" method="post">
-                <label for="logemail">Email:</label>
-                <input class="form-control" type="email" name="logemail" [(ngModel)]="logemail"><br>
+                <label for="logusername">Username:</label>
+                <input class="form-control" type="text" name="logusername" [(ngModel)]="logusername"><br>
                 <label for="logpassword">Password:</label>
                 <input class="form-control" type="password" name="logpassword" [(ngModel)]="logpassword"><br>
                 <input type="submit" name="submit" class="btn btn-secondary">

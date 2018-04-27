@@ -13,7 +13,11 @@ export class LobbyComponent implements OnInit {
   users;
   scores;
   session;
+<<<<<<< HEAD
   gameOn;
+=======
+  username;
+>>>>>>> 66eb93d002c91ea9b53c9ef7463b0707d0c9fdb4
 
   constructor(private _userService:UserService, private _router:Router) { }
 
@@ -21,7 +25,7 @@ export class LobbyComponent implements OnInit {
     this.gameOn = false;
     this.getUsers();
     this.getScores();
-    this.session = localStorage.getItem("email")
+    this.session = localStorage.getItem("username")
     console.log(this.session)
   }
   getUsers(){
@@ -39,8 +43,12 @@ export class LobbyComponent implements OnInit {
   }
 
   logout(){
-    localStorage.clear();
     console.log("session cleared!!!!!!")
+    let observable = this._userService.logout();
+    observable.subscribe(data => {
+      console.log(data, "****************************"),
+      this.scores = data})
+      localStorage.clear();
     this._router.navigateByUrl('')
     
     }
@@ -51,9 +59,6 @@ export class LobbyComponent implements OnInit {
       this.gameOn = false;
     }
 
-    // get user(): any{
-    //   return sessionStorage.getItem("email");
-    // }
   }
 
 

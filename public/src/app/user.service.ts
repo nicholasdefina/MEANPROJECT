@@ -6,12 +6,11 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class UserService {
   userid;
-  session;
   constructor(private _http: Http) { }
 
-  createUser(first,last,email,password, confirm){
+  createUser(first,last,email,username,password, confirm){
     console.log("at user service")
-    return this._http.post('/api/users/register', {first:first, last:last, email:email, password:password, confirm:confirm}).map(data =>data.json()).toPromise();
+    return this._http.post('/api/users/register', {first:first, last:last, email:email, username:username, password:password, confirm:confirm}).map(data =>data.json()).toPromise();
   }
   setID(id){
     this.userid = id;
@@ -29,19 +28,14 @@ export class UserService {
     return this._http.get('/api/users/scores')
   }
 
-  login(email,password){
+  login(username,password){
     console.log("at user service for login")
-    return this._http.post('/api/users/login', {email:email, password:password}).map(data =>data.json()).toPromise();
+    return this._http.post('/api/users/login', {username:username, password:password}).map(data =>data.json()).toPromise();
   }
 
   logout(){
-    // this.session = sessionStorage.getItem("email")
-    console.log(this.session)
-    localStorage.clear();
-  return this._http.get('/api/users/logout', this.session).map(data =>data.json()).toPromise();
+    console.log("in the service for logout")
+  return this._http.delete('/api/users/logout', this.userid)
   }
 
-  // getuser(): any{
-  //   return sessionStorage.getItem("email");
-  // }
 }

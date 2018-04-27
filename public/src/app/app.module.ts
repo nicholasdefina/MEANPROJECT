@@ -13,13 +13,17 @@ import { UserService } from './user.service';
 import { ListComponent } from './list/list.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     LobbyComponent,
     GameComponent,
     HomeComponent,
+<<<<<<< HEAD
     ListComponent
+=======
+>>>>>>> 66eb93d002c91ea9b53c9ef7463b0707d0c9fdb4
   ],
   imports: [
     BrowserModule,

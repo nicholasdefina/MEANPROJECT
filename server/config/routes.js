@@ -3,10 +3,10 @@ var users = require('../controllers/user.js')
 
 module.exports = function (app) {  //exporting routes
 
-    app.get('/api/active/:id', function(req,res){
-        console.log("at routes for checkID");
-        users.check(req, res)
-    })
+    // app.get('/api/active/:id', function(req,res){
+    //     console.log("at routes for checkID");
+    //     users.check(req, res)
+    // })
 
     app.post('/api/users/register', function (req, res) {  //create user route
         console.log("at routes for create user")

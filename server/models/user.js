@@ -38,21 +38,20 @@ var UserSchema = new mongoose.Schema({  //defining user schema
                 validator: function (value) {
                     return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,32}/.test(value);
                 },
-                message: "Password failed validation, you must have at least 1 number, uppercase and special character"
+                message: "Password failed validation, must be 8 characters long."
             }
     },
 
+    username: {
+        type: String, required: true, minlength: 4, unique: [true, "Username already in database!"]
+        
+        },
+
+
+
     score: { type: Number, default: 0 },
 
-    // birthday: {
-    //     type: Date, required: true,
-    //     validate: {
-    //         validator: function (value) {
-    //             return value.getTime() < new Date().getTime();
-    //         },
-    //         message: "Date must be in the past"
-    //     }
-    // }
+
 }, { timestamps: true })
 
 
