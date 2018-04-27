@@ -13,11 +13,8 @@ export class LobbyComponent implements OnInit {
   users;
   scores;
   session;
-<<<<<<< HEAD
   gameOn;
-=======
   username;
->>>>>>> 66eb93d002c91ea9b53c9ef7463b0707d0c9fdb4
 
   constructor(private _userService:UserService, private _router:Router) { }
 
